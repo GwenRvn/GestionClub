@@ -44,35 +44,43 @@
                     <ul class="dropdown-menu" arialabelledby="navbarDropdownMenuLink">
                         @auth
 
-                        @csrf
+                            @csrf
 
-                            {{--Si l'utilisateur est un admin, un nouvel item s'affiche: le dashboard--}}
-                        @if(Auth::user()->admin)
-                                {{--Le séparateur entre connexion inscription et Dashboard--}}
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                 <i class="fa fa-user"></i> Profil</a></li>
 
-                            <di class="divider dropdown-divider"></di>
-                            <a href="dashboard" class="dropdown-item">
-                                <i class="fa-solid fa-table-columns"></i>
-                                Dashboard
-                            </a>
+                                {{--Si l'utilisateur est un admin, un nouvel item s'affiche: le dashboard--}}
+                            @if(Auth::user()->admin)
+                                    {{--Le séparateur entre connexion inscription et Dashboard--}}
 
+                                <di class="divider dropdown-divider"></di>
+                                <a href="{{ route('dashboard') }}" class="dropdown-item">
+                                    <i class="fa-solid fa-table-columns"></i>
+                                    Dashboard
+                                </a>
                             @endif
-                            {{--Sinon, l'utilisateur a le choix entre se connecter et créer un compte--}}
 
-                        @else
+                            {{--Sinon, l'utilisateur a le choix entre se connecter et créer un compte   --}}
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item" href="{{ route('logout') }}"><i class="fa-solid fa-table-columns"></i>Déconnexion</button>
+                            </form>@else
+
+
                             <li><a class="dropdown-item" href="login">
                                     <i class="fa fa-sign-in"></i> Connexion</a></li>
 
-                            <li><a class="dropdown-item" href="dashboard">
-                                    <i class="fa fa-user"></i> Profil</a></li>
 
-                            <li> <a class="dropdown-item" href="#"><i class="fa fa-sliders">
-                                    </i>Préférences</a> </li>
+
+{{--                            <li> <a class="dropdown-item" href="#"><i class="fa fa-sliders">--}}
+{{--                                    </i>Préférences</a> </li>--}}
 
                             <div class="dropdown-divider"></div> <!-- Séparateur de liste -->
 
-                            <a class="dropdown-item" href="login">
-                                <i class="fa fa-sign-out"></i> Déconnexion</a> <!-- Élément du sous-menu pour la déconnexion -->
+                            <li><a class="dropdown-item" href="/register">
+                                <i class="fa fa-user-plus"></i> Inscription</a></li>
+
+
 
                         @endauth
                     </ul>
